@@ -20,9 +20,18 @@
 			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 				<div class="card bg-dark text-white" style="border-radius: 1rem;">
 					<div class="card-body p-5 text-center">
-						<div class="mb-md-5 mt-md-4 pb-5">
+						<div class="mb-md-4 mt-md-3 pb-5">
 							<h2 class="fw-bold mb-2 text-uppercase">회원가입</h2>
 							<p class="text-white-50 mb-5">아래의 정보를 입력해주세요</p>
+
+							<!-- 개인 / 사업자 가입 구분 -->
+							<div class="mb-3">
+								<button type="button" class="btn btn-primary"
+									onclick="showPersonalForm()">개인</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="showBusinessForm()">사업자</button>
+							</div>
+
 							<form id="joinForm" action="/userInsert" method="post">
 								<div class="form-outline form-white mb-4">
 									<input type="text" id="id" class="form-control form-control-lg"
@@ -58,52 +67,127 @@
 										placeholder="010-1234-5678" name="phone" required /> <label
 										class="form-label" for="phone">연락처</label>
 								</div>
-								<input type="submit" class="btn btn-outline-light btn-lg px-5"
-									value="가입하기">
+								<button type="submit" class="btn btn-outline-light btn-lg px-5">가입하기</button>
 							</form>
-							<script>
-								document
-										.getElementById('passwordConfirm')
-										.addEventListener(
-												'input',
-												function() {
-													var password = document
-															.getElementById('password').value;
-													var passwordConfirm = this.value;
-													var errorDiv = this.nextElementSibling;
 
-													if (password !== passwordConfirm) {
-														errorDiv.innerHTML = '비밀번호가 일치하지 않습니다.';
-														errorDiv.style.color = 'red'; // 텍스트 색상을 빨간색으로 변경
-													} else {
-														errorDiv.innerHTML = '비밀번호가 일치합니다.';
-														errorDiv.style.color = ''; // 초기 텍스트 색상으로 복원
-													}
-												});
-							</script>
+							<!-- 사업자 회원가입 폼 -->
+							<form id="businessForm" action="/businessInsert" method="post"
+								style="display: none;">
+								<div class="form-outline form-white mb-4">
+									<input type="text" id="businessName"
+										class="form-control form-control-lg" placeholder="상호명"
+										name="businessName" required /> <label class="form-label"
+										for="businessName">상호명</label>
+								</div>
+								<div class="form-outline form-white mb-4">
+									<input type="text" id="businessId"
+										class="form-control form-control-lg" placeholder="아이디"
+										name="businessId" required /> <label class="form-label"
+										for="businessId">아이디</label>
+								</div>
+								<div class="form-outline form-white mb-4">
+									<input type="password" id="businessPassword"
+										class="form-control form-control-lg" placeholder="*****"
+										name="businessPassword" required /> <label class="form-label"
+										for="businessPassword">비밀번호</label>
+								</div>
 
-							<!-- Google Login -->
-							<a href="/oauth2/authorization/google"> <img
-								src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png">
-							</a>
-
-							<!-- Naver Login -->
-							<a href="/oauth2/authorization/naver"> <img
-								src="https://static.nid.naver.com/oauth/small_g_in.PNG">
-							</a>
-
-							<!-- Kakao Login -->
-							<a href="/oauth2/authorization/kakao"> <img
-								src="https://developers.kakao.com/img/about/logos/kakao_accounts/kakao_account_login_btn_medium.png">
-							</a> 
-							<br>
-							<br>
-							<a href="/">돌아가기</a>
+								<div class="form-outline form-white mb-4">
+									<input type="password" id="passwordConfirm1"
+										class="form-control form-control-lg" placeholder="*****"
+										name="passwordConfirm1" required /> <label class="form-label"
+										for="passwordConfirm1">비밀번호 확인</label>
+								</div>
+								
+									<div class="form-outline form-white mb-4">
+										<input type="text" id="businessNumber"
+											class="form-control form-control-lg" placeholder="사업자번호"
+											name="businessNumber" required /> <label class="form-label"
+											for="businessNumber">사업자번호</label>
+									</div>
+									<div class="form-outline form-white mb-4">
+										<input type="file" id="businessRegistration"
+											class="form-control form-control-lg"
+											name="businessRegistration" required /> <label
+											class="form-label" for="businessRegistration">사업자등록증
+											첨부</label>
+									</div>
+									<!-- ... (기타 필요한 사업자 회원가입 폼 내용을 추가) ... -->
+									<button type="submit" class="btn btn-outline-light btn-lg px-2">가입하기</button>
+								</form>
 						</div>
+
+						<script>
+							function showPersonalForm() {
+								document.getElementById('joinForm').style.display = 'block';
+								document.getElementById('businessForm').style.display = 'none';
+							}
+
+							function showBusinessForm() {
+								document.getElementById('joinForm').style.display = 'none';
+								document.getElementById('businessForm').style.display = 'block';
+							}
+
+							// 개인 비밀번호 일치확인
+							document
+									.getElementById('passwordConfirm')
+									.addEventListener(
+											'input',
+											function() {
+												var password = document
+														.getElementById('password').value;
+												var passwordConfirm = this.value;
+												var errorDiv = this.nextElementSibling;
+
+												if (password !== passwordConfirm) {
+													errorDiv.innerHTML = '비밀번호가 일치하지 않습니다.';
+													errorDiv.style.color = 'red'; // 텍스트 색상을 빨간색으로 변경
+												} else {
+													errorDiv.innerHTML = '비밀번호가 일치합니다.';
+													errorDiv.style.color = ''; // 초기 텍스트 색상으로 복원
+												}
+											});
+							
+							// 사업자 비밀번호 일치확인
+							document
+									.getElementById('passwordConfirm1')
+									.addEventListener(
+											'input',
+											function() {
+												var password = document
+														.getElementById('password').value;
+												var passwordConfirm1 = this.value;
+												var errorDiv = this.nextElementSibling;
+
+												if (password !== passwordConfirm1) {
+													errorDiv.innerHTML = '비밀번호가 일치하지 않습니다.';
+													errorDiv.style.color = 'red'; // 텍스트 색상을 빨간색으로 변경
+												} else {
+													errorDiv.innerHTML = '비밀번호가 일치합니다.';
+													errorDiv.style.color = ''; // 초기 텍스트 색상으로 복원
+												}
+											});
+						</script>
+
+						<!-- Google Login -->
+						<a href="/oauth2/authorization/google"> <img
+							src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png">
+						</a>
+
+						<!-- Naver Login -->
+						<a href="/oauth2/authorization/naver"> <img
+							src="https://static.nid.naver.com/oauth/small_g_in.PNG">
+						</a>
+
+						<!-- Kakao Login -->
+						<a href="/oauth2/authorization/kakao"> <img
+							src="https://developers.kakao.com/img/about/logos/kakao_accounts/kakao_account_login_btn_medium.png">
+						</a> <br> <br> <a href="/">돌아가기</a>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
