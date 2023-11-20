@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.mapper.BoardMapper">
+
+	<!-- 단체 예약 목록 -->
+    <select id  	  ="getBoard" 
+    		resultType="com.board.domain.BoardDTO">
+	    SELECT 		c.COMPANY_NAME as companyname, ci.ANNOUNCEMENT, 
+	    		    ci.REPNUMBER, ci.DAYOFF, ci.BREAKTIME, c.COMPANY_ADDRESS AS companyaddress
+		FROM 		COMPANY c
+		INNER JOIN  COMPANYADDINFO ci on c.COMPANY_NAME = ci.COMPANY_NAME
+		ORDER BY    c.COMPANY_NAME ASC
+    </select>
+
+    <!-- 상세보기 -->
+    <select id  	  ="viewBoard" 
+            resultType="com.board.domain.BoardDTO">
+        SELECT    c.ID as id,
+           		  c.PASSWORD 		as password,
+           		  c.COMPANY_NAME 	as companyname,
+           		  c.COMPANY_LICENSE as companylicense,
+           		  c.COMPANY_NUMBER 	as companynumber,
+           		  c.COMPANY_ADDRESS as companyaddress,
+           		  c.EMAIL 			as email,
+           		  c.PHONE 			as phone,
+           		  ci.ANNOUNCEMENT 	as announcement,
+           		  ci.REPNUMBER 		as repnumber,
+           		  ci.DAYOFF 		as dayoff,
+           		  ci.BREAKTIME 		as breaktime
+        FROM      COMPANY c
+        LEFT JOIN COMPANYADDINFO ci on c.COMPANY_NAME = ci.COMPANY_NAME
+        WHERE     c.COMPANY_NAME = #{companyname} 
+    </select>
+    
+    
+    <insert id="boardInsert" parameterType="com.board.domain.BoardDTO">
+        INSERT INTO COMPANYADDINFO (COMPANY_NAME, ANNOUNCEMENT, REPNUMBER, DAYOFF, BREAKTIME)
+        VALUES (#{companyname}, #{announcement}, #{repnumber}, #{dayoff}, #{breaktime})
+    </insert>
+
+    <update id="boardUpdate" parameterType="com.board.domain.BoardDTO">
+        UPDATE COMPANYADDINFO
+        SET ANNOUNCEMENT   = #{announcement},
+            REPNUMBER      = #{repnumber},
+            DAYOFF         = #{dayoff},
+            BREAKTIME      = #{breaktime}
+        WHERE COMPANY_NAME = #{companyname}
+    </update>
+
+</mapper>
