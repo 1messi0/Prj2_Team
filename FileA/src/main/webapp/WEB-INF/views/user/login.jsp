@@ -38,10 +38,10 @@
 									</div>
 
 									<p class="small mb-5 pb-lg-2">
-										<a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a>
+										<a class="text-white-50" href="#!" style="font-size:20px;">비밀번호를 잊으셨나요?</a>
 									</p>
 
-									<button class="btn btn-outline-light btn-lg px-5" type="submit">로그인</button>
+									<button class="btn btn-outline-light btn-lg px-5" type="submit" style="font-size: 28px;">로그인</button>
 								</form>
 
 								<div class="d-flex justify-content-center text-center mt-4 pt-1">
