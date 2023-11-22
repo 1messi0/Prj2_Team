@@ -1,4 +1,4 @@
-package com.board.mail;
+package com.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +13,9 @@ public class MailController {
 
     private final MailService mailService;
 
-    @GetMapping("/mail")
+    @GetMapping("/join")
     public String MailPage(){
-        return "main";
+        return "join";
     }
 
     @ResponseBody

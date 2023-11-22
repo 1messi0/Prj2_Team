@@ -13,6 +13,40 @@
 <!-- join.css 파일 연결 -->
 <link rel="stylesheet" href="static/css/join.css">
 </head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+<script type="text/javascript">
+
+	function sendNumber() {
+		$("#mail_number").css("display", "block");
+		$.ajax({
+			url : "/mail",
+			type : "post",
+			dataType : "json",
+			data : {
+				"mail" : $("#mail").val()
+			},
+			success : function(data) {
+				alert("인증번호 발송");
+				$("#Confirm").attr("value", data);
+			}
+		});
+	}
+
+	function confirmNumber() {
+		var number1 = $("#number").val();
+		var number2 = $("#Confirm").val();
+
+		if (number1 == number2) {
+			alert("인증되었습니다.");
+		} else {
+			alert("번호가 다릅니다.");
+		}
+	}
+	
+</script>
+
 <body class="gradient-custom">
 	<div class="container py-5 h-100">
 		<div
@@ -55,12 +89,25 @@
 										class="form-control form-control-lg" placeholder="성명"
 										name="name" required /> <label class="form-label" for="name">성명</label>
 								</div>
-								<div class="form-outline form-white mb-4">
-									<input type="email" id="email"
-										class="form-control form-control-lg" placeholder="이메일을 입력하세요"
-										name="email" required /> <label class="form-label"
-										for="email">이메일</label>
+
+								<div class="form-outline form-white mb-4" id="mail_input"
+									name="mail_input">
+									<input type="text" name="mail" id="mail" placeholder="이메일 입력"
+										class="form-control form-control-lg">
+									<button type="button" id="sendBtn" name="sendBtn"
+										onclick="sendNumber()">인증번호</button>
 								</div>
+								<div class="form-outline form-white mb-4" id="mail_number"
+									name="mail_number" style="display: none">
+									<input type="text" name="number" id="number"
+										placeholder="인증번호 입력" class="form-control form-control-lg">
+									<button type="button" name="confirmBtn" id="confirmBtn"
+										onclick="confirmNumber()">이메일 인증</button>
+								</div>
+								
+								<br> <input type="text" id="Confirm" name="Confirm"
+									style="display: none" value="">
+
 								<div class="form-outline form-white mb-4">
 									<input type="text" id="phone"
 										class="form-control form-control-lg"
@@ -98,23 +145,23 @@
 										name="passwordConfirm1" required /> <label class="form-label"
 										for="passwordConfirm1">비밀번호 확인</label>
 								</div>
-								
-									<div class="form-outline form-white mb-4">
-										<input type="text" id="businessNumber"
-											class="form-control form-control-lg" placeholder="사업자번호"
-											name="businessNumber" required /> <label class="form-label"
-											for="businessNumber">사업자번호</label>
-									</div>
-									<div class="form-outline form-white mb-4">
-										<input type="file" id="businessRegistration"
-											class="form-control form-control-lg"
-											name="businessRegistration" required /> <label
-											class="form-label" for="businessRegistration">사업자등록증
-											첨부</label>
-									</div>
-									<!-- ... (기타 필요한 사업자 회원가입 폼 내용을 추가) ... -->
-									<button type="submit" class="btn btn-outline-light btn-lg px-2">가입하기</button>
-								</form>
+
+								<div class="form-outline form-white mb-4">
+									<input type="text" id="businessNumber"
+										class="form-control form-control-lg" placeholder="사업자번호"
+										name="businessNumber" required /> <label class="form-label"
+										for="businessNumber">사업자번호</label>
+								</div>
+								<div class="form-outline form-white mb-4">
+									<input type="file" id="businessRegistration"
+										class="form-control form-control-lg"
+										name="businessRegistration" required /> <label
+										class="form-label" for="businessRegistration">사업자등록증
+										첨부</label>
+								</div>
+								<!-- ... (기타 필요한 사업자 회원가입 폼 내용을 추가) ... -->
+								<button type="submit" class="btn btn-outline-light btn-lg px-2">가입하기</button>
+							</form>
 						</div>
 
 						<script>
@@ -147,7 +194,7 @@
 													errorDiv.style.color = ''; // 초기 텍스트 색상으로 복원
 												}
 											});
-							
+
 							// 사업자 비밀번호 일치확인
 							document
 									.getElementById('passwordConfirm1')

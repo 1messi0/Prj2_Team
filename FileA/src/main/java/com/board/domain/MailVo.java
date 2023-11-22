@@ -1,4 +1,4 @@
-package com.board.mail;
+package com.board.domain;
 
 import lombok.Data;
 

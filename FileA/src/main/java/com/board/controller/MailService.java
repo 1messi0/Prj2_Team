@@ -1,4 +1,4 @@
-package com.board.mail;
+package com.board.controller;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

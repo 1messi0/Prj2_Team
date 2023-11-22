@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.login.UserVo;
 import com.board.mapper.UserMapper;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
 public class HomeController {
@@ -79,8 +82,6 @@ public class HomeController {
 		}
 
 
-
-		
 		// 약관 동의
 		@RequestMapping("/Terms")
 		public  ModelAndView terms() {
@@ -108,8 +109,8 @@ public class HomeController {
 	        userMapper.userInsert(user);
 	        return "redirect:/Login";
 	    }
-	
-	
+	    
+	    // 이메일 인증번호 처리
 }
 
 
